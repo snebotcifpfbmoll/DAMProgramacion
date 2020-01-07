@@ -1,7 +1,7 @@
 // Importar libreria para poder leer stdin
 import java.util.*;
 
-public class P01E01 {
+public class P01E02 {
     public static void main(String[] args) {
         int NSTRINGS = 5; // Numero de veces que queremos leer
         String[] strs = new String[NSTRINGS]; // Array de String donde vamos a guardar todos numeros introudcidos por el usuario
@@ -15,7 +15,7 @@ public class P01E01 {
 
         // Mostrar resultado
         System.out.println("Has introducido:");
-        for (int i = 0; i < NSTRINGS; i ++) {
+    for (int i = NSTRINGS - 1; i >= 0; i --) {
             System.out.println(strs[i]);
         }
 
