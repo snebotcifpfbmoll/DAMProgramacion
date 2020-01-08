@@ -176,20 +176,30 @@ public class P01E07 {
         System.out.print("\n> ");
         int opcion = Integer.parseInt(sc.nextLine());
 
-        if (opcion == 1) {
-            e01(sc);
-        } else if (opcion == 2) {
-            e02(sc);
-        } else if (opcion == 3) {
-            e03(sc);
-        } else if (opcion == 4) {
-            e04(sc);
-        } else if (opcion == 5) {
-            e05(sc);
-        } else if (opcion == 6) {
-            e06(sc);
-        } else {
-            System.out.println("La opcion " + opcion + " no existe.");
+        switch (opcion) {
+            case 1:
+                e01(sc);
+                break;
+            case 2:
+                e02(sc);
+                break;
+            case 3:
+                e04(sc);
+                break;
+            case 4:
+                e04(sc);
+                break;
+            case 5:
+                e05(sc);
+                break;
+            case 6:
+                e06(sc);
+                break;
+            case 7:
+                break;
+            default:
+                System.out.println("La opcion " + opcion + " no existe.");
+                break;
         }
 
         sc.close();
