@@ -64,4 +64,24 @@ public class Comida {
         this.nivelEnergetico = c.getNivelEnergetico();
         this.nivelAgua = c.getNivelAgua();
     }
+
+    public void mostrarValores() {
+        System.out.println("=== Atributos de " + nombre + " ===");
+        String tipo = "";
+        switch (getTipo()) {
+            case comida:
+                tipo = "comida";
+                break;
+            case bebida:
+                tipo = "bebida";
+                break;
+            default:
+                System.out.println("No se reconoce el tipo de comida.");
+                break;
+        }
+        System.out.println("Tipo: " + tipo);
+        System.out.println("Energia: " + getNivelEnergetico());
+        System.out.println("Agua: " + getNivelAgua());
+        System.out.println("");
+    }
 }

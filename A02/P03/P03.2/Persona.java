@@ -103,5 +103,6 @@ public class Persona {
          System.out.println("== NIVELES ==");
          System.out.println("Energia: " + getNivelComida());
          System.out.println("Agua: " + getNivelAgua());
+         System.out.println("");
     }
 }
