@@ -10,6 +10,7 @@ public class Pelicula {
     private String genero;
     private int ano;
     private int stock;
+    //private boolean disponibilidad; // No hace falta ya que se puede calcular a partir del numero de reservas y el numero de stock
     private static int stock_total = 0;
     private int reservadas;
 
@@ -58,6 +59,7 @@ public class Pelicula {
     }
 
     public boolean getDisponibilidad() {
+        // Calcular disponibilidad
         return this.getStock() != this.getReservadas();
     }
 
@@ -90,6 +92,11 @@ public class Pelicula {
 
     public int getReservadas() {
         return this.reservadas;
+    }
+
+    // La variable stock_total va a ser de solo lectura
+    public static int getStockTotal() {
+        return stock_total;
     }
 
     public Pelicula() {
