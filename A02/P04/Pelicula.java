@@ -1,6 +1,7 @@
 import java.util.*;
 
 public class Pelicula {
+    private static final int MAX_PELICULAS = 3000; // Maximo de peliculas
     private static int n_peliculas = 0; // Contador de peliculas creadas
     private final int id; // Una vez creada la pelicula el id no deberia cambiar
     private String titulo;
@@ -8,9 +9,8 @@ public class Pelicula {
     private double duracion;
     private String genero;
     private int ano;
-    private boolean disponible;
     private int stock;
-    public static int stock_total = 0;
+    private static int stock_total = 0;
     private int reservadas;
 
     public int getId() {
@@ -57,23 +57,19 @@ public class Pelicula {
         return this.ano;
     }
 
-    public void setDisponible(boolean disponibilidad) {
-        this.disponible = disponible;
-    }
-
-    public boolean getDisponible() {
-        return this.disponible;
+    public boolean getDisponibilidad() {
+        return this.getStock() != this.getReservadas();
     }
 
     public void setStock(int stock) {
-        // Comprobar la capacidad total
-        if (this.stock_total + stock <= 3000) {
+        // Comprobar que no sobrepasamos la cantidad total
+        if (this.stock_total + stock <= MAX_PELICULAS) {
             this.stock = stock;
             this.stock_total += stock;
         } else {
-            // En caso de sobrepasar el maximo de almazenaje, redondeamos el stock a 3000
-            this.stock = 3000 - this.stock_total;
-            this.stock_total = 3000;
+            // En caso de sobrepasar el maximo de almazenaje, redondeamos el stock a MAX_PELICULAS
+            this.stock = MAX_PELICULAS - this.stock_total;
+            this.stock_total = MAX_PELICULAS;
         }
     }
 
@@ -81,8 +77,15 @@ public class Pelicula {
         return this.stock;
     }
 
-    public void setReservadas(int reservadas) {
-        this.reservadas = reservadas;
+    public int setReservadas(int reservadas) {
+        // Comprobar que la cantidad de reservadas no sea mayor al numero de stock
+        if (this.getReservadas() + reservadas > this.getStock()) {
+            System.out.println("Error: No se pueden reservar tantas peliculas.");
+            return -1;
+        } else {
+            this.reservadas = reservadas;
+            return 0;
+        }
     }
 
     public int getReservadas() {
@@ -93,25 +96,22 @@ public class Pelicula {
         this.id = n_peliculas ++;
     }
 
-    public Pelicula(String titulo, String director, double duracion, String genero, int ano, boolean disponible, int stock, int reservadas) {
+    public Pelicula(String titulo, String director, double duracion, String genero, int ano, int stock) {
         this.id = n_peliculas ++;
         this.titulo = titulo;
         this.director = director;
         this.duracion = duracion;
         this.genero = genero;
         this.ano = ano;
-        this.disponible = disponible;
-        this.reservadas = reservadas;
+        this.reservadas = 0; // Siempre va a ser 0 al crear por primera vez
 
         // Comprobar la capacidad total
-        if (this.stock_total + stock <= 3000) {
-            System.out.println("y stock_total: " + this.stock_total + stock);
+        if (this.stock_total + stock <= MAX_PELICULAS) {
             this.stock = stock;
             this.stock_total += stock;
         } else {
-            // En caso de sobrepasar el maximo de almazenaje, redondeamos el stock a 3000
-            this.stock = 3000 - this.stock_total;
-            System.out.println("n stock_total: " + this.stock_total + stock);
+            // En caso de sobrepasar el maximo de almazenaje, redondeamos el stock a MAX_PELICULAS
+            this.stock = MAX_PELICULAS - this.stock_total;
         }
     }
 
@@ -129,17 +129,14 @@ public class Pelicula {
         String genero = sc.nextLine();
         System.out.print("Ano: ");
         int ano = Integer.parseInt(sc.nextLine());
-        System.out.print("Disponible (true/false): ");
-        boolean disponible = sc.nextLine().equals("true") ? true : false;
         System.out.print("Stock: ");
         int stock = Integer.parseInt(sc.nextLine());
 
-        int stock_total = new Pelicula().stock_total;
-        if (stock_total + stock > 3000) {
-            System.out.println("Error: No se pueden almazenar tantas peliculas. Numero acutal: " + stock_total + "/3000");
+        if (stock_total + stock > MAX_PELICULAS) {
+            System.out.println("Error: No se pueden almazenar tantas peliculas. Numero acutal: " + stock_total + "/MAX_PELICULAS");
             return null;
         }
 
-        return new Pelicula(titulo, director, duracion, genero, ano, disponible, stock, 0);
+        return new Pelicula(titulo, director, duracion, genero, ano, stock);
     }
 }
