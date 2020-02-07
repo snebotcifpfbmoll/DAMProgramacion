@@ -74,15 +74,44 @@ public class P04 {
     }
 
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
         ArrayList<Pelicula> peliculas = new ArrayList<Pelicula>();
 
+        int opcion = 0;
+        do {
+            System.out.println("==== MENU ====");
+            System.out.println("\t1) Añadir pelicula.");
+            System.out.println("\t2) Reservar pelicula.");
+            System.out.println("\t3) Buscar pelicula.");
+            System.out.println("\t4) Salir.");
+            System.out.print("\n> ");
+            opcion = Integer.parseInt(sc.nextLine());
 
-        Pelicula p1 = new Pelicula("Titanic", "director", 120, "genero", 2001, 1);
-        Pelicula p2 = new Pelicula("El lobo de wall street", "director2", 140, "genero", 2012, 10);
-        peliculas.add(p1);
-        peliculas.add(p2);
-        listarPeliculas(peliculas);
-        Pelicula p3 = buscarPelicula(peliculas);
-        if (p3 != null) System.out.println("Pelicula encontrada; ID: " + p3.getId());
+            switch (opcion) {
+                case 1:
+                    {
+                        Pelicula p = Pelicula.anadirPelicula();
+                        if (p != null) peliculas.add(p);
+                        break;
+                    }
+                case 2:
+                    {
+                        reservarPelicula(peliculas);
+                        break;
+                    }
+                case 3:
+                    {
+                        Pelicula p = buscarPelicula(peliculas);
+                        if (p != null) p.mostrarDatos();
+                        break;
+                    }
+                case 4:
+                    // El bucle va a terminar
+                    break;
+                default:
+                    System.out.println("La opcion " + opcion + " no se reconoce.");
+                    break;
+            }
+        } while (opcion != 4);
     }
 }

@@ -79,7 +79,7 @@ public class Pelicula {
 
     public int setReservadas(int reservadas) {
         // Comprobar que la cantidad de reservadas no sea mayor al numero de stock
-        if (this.getReservadas() + reservadas > this.getStock()) {
+        if (reservadas > this.getStock()) {
             System.out.println("Error: No se pueden reservar tantas peliculas.");
             return -1;
         } else {
@@ -138,5 +138,17 @@ public class Pelicula {
         }
 
         return new Pelicula(titulo, director, duracion, genero, ano, stock);
+    }
+
+    public void mostrarDatos() {
+        System.out.println("ID: " + this.getId());
+        System.out.println("Titulo: " + this.getTitulo());
+        System.out.println("Director: " + this.getDirector());
+        System.out.println("Duracion: " + this.getDuracion());
+        System.out.println("Genero: " + this.getGenero());
+        System.out.println("Ano: " + this.getAno());
+        System.out.println("Disponible: " + this.getDisponibilidad());
+        System.out.println("Stock: " + this.getStock());
+        System.out.println("Reservadas: " + this.getReservadas());
     }
 }
