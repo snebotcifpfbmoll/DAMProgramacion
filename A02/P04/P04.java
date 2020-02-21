@@ -6,28 +6,37 @@ public class P04 {
         return null;
     }
 
-    public static Pelicula obtenerPelicula(ArrayList<Pelicula> peliculas, String titulo) {
-        for (Pelicula p : peliculas) if (p.getTitulo().contains(titulo)) return p;
-        return null;
+    public static ArrayList<Pelicula> obtenerPelicula(ArrayList<Pelicula> peliculas, String titulo) {
+        ArrayList<Pelicula> ret = new ArrayList<Pelicula>();
+        for (Pelicula p : peliculas) if (p.getTitulo().contains(titulo)) ret.add(p);
+        return ret;
     }
 
-    public static Pelicula buscarPelicula(ArrayList<Pelicula> peliculas) {
+    public static void buscarPelicula(ArrayList<Pelicula> peliculas) {
         Scanner sc = new Scanner(System.in);
         System.out.print("Como quieres buscar? (id/titulo): ");
         String metodo = sc.nextLine().toLowerCase();
 
         switch (metodo) {
             case "id":
-                System.out.print("Introduce el ID: ");
-                int id = Integer.parseInt(sc.nextLine());
-                return obtenerPelicula(peliculas, id);
+                {
+                    System.out.print("Introduce el ID: ");
+                    int id = Integer.parseInt(sc.nextLine());
+                    Pelicula p = obtenerPelicula(peliculas, id);
+                    if (p != null) p.mostrarDatos();
+                    break;
+                }
             case "titulo":
-                System.out.print("Introduce el titulo: ");
-                String titulo = sc.nextLine();
-                return obtenerPelicula(peliculas, titulo);
+                {
+                    System.out.print("Introduce el titulo: ");
+                    String titulo = sc.nextLine();
+                    ArrayList<Pelicula> pel = obtenerPelicula(peliculas, titulo);
+                    for (Pelicula p : pel) p.mostrarDatos();
+                    break;
+                }
             default:
                 System.out.println("Error: No se reconoce la opcion: " + metodo);
-                return null;
+                break;
         }
     }
 
@@ -101,8 +110,7 @@ public class P04 {
                     }
                 case 3:
                     {
-                        Pelicula p = buscarPelicula(peliculas);
-                        if (p != null) p.mostrarDatos();
+                        buscarPelicula(peliculas);
                         break;
                     }
                 case 4:

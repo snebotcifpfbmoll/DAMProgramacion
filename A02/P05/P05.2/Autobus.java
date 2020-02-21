@@ -25,4 +25,21 @@ public class Autobus extends Vehiculo {
         this.n_plazas = n_plazas;
         this.n_paradas = n_paradas;
     }
+
+    public Autobus(Autobus auto) {
+        super((Vehiculo) auto);
+        this.n_plazas = auto.n_plazas;
+        this.n_paradas = auto.n_paradas;
+    }
+
+    @Override
+    public void mostrarAtributos() {
+        super.mostrarAtributos();
+        System.out.println("Numero plazas: " + getNumeroPlazas());
+        System.out.println("Numero paradas: " + getNumeroParadas());
+    }
+
+    @Override
+    public void pedirAlta() {
+    }
 }
