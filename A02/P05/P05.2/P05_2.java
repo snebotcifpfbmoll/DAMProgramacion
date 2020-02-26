@@ -94,7 +94,8 @@ public class P05_2 {
             System.out.println("\t5) Buscar vehiculo");
             System.out.println("\t6) Buscar taxi libre");
             System.out.println("\t7) Buscar taxi por id");
-            System.out.println("\t8) Salir");
+            System.out.println("\t8) Mostrar atributos");
+            System.out.println("\t9) Salir");
             System.out.print("\n> ");
             opcion = Integer.parseInt(sc.nextLine());
 
