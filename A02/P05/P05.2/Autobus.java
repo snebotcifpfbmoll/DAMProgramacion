@@ -26,6 +26,8 @@ public class Autobus extends Vehiculo {
         this.n_paradas = n_paradas;
     }
 
+    public Autobus() {}
+
     public Autobus(Autobus auto) {
         super((Vehiculo) auto);
         this.n_plazas = auto.n_plazas;
@@ -41,5 +43,19 @@ public class Autobus extends Vehiculo {
 
     @Override
     public void pedirAlta() {
+        Scanner sc = new Scanner(System.in);
+
+        super.pedirAlta();
+
+        System.out.print("Numero plazas: ");
+        setNumeroPlazas(Integer.parseInt(sc.nextLine()));
+
+        System.out.print("Numero de paradas: ");
+        int n_paradas = Integer.parseInt(sc.nextLine());
+        while (n_paradas < 3 || n_paradas > 20) {
+            System.out.print("Numero de paradas (entre 3 y 20): ");
+            n_paradas = Integer.parseInt(sc.nextLine());
+        }
+        setNumeroParadas(n_paradas);
     }
 }

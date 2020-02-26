@@ -6,14 +6,11 @@ public class Taxi extends Vehiculo {
     private boolean libre;
     private int n_taxistas;
 
-    public int setLicencia(int licencia) {
+    public void setLicencia(int licencia) {
         // Comprobar que es mayor que la ultima licencia (es incremental)
         if (licencia > ultimaLicencia) {
             this.licencia = licencia;
             ultimaLicencia = licencia;
-            return licencia;
-        } else {
-            return null;
         }
     }
 
@@ -36,6 +33,8 @@ public class Taxi extends Vehiculo {
     public int getNumeroTaxistas() {
         return this.n_taxistas;
     }
+
+    public Taxi() {}
 
     public Taxi(int licencia, boolean libre, int n_taxistas) {
         super();
@@ -69,20 +68,15 @@ public class Taxi extends Vehiculo {
 
     @Override
     public void pedirAlta() {
+        Scanner sc = new Scanner(System.in);
         super.pedirAlta();
 
-        System.out.print("Licencia: ");
-        int licencia = Integer.parseInt(sc.nextLine());
-        while (licencia <= ultimaLicencia) {
-            System.out.println("Licencia: ");
-            licencia = Integer.parseInt(sc.nextLine());
-        }
-        setLicencia(licencia);
+        setLicencia(ultimaLicencia++);
 
         System.out.print("Libre (si/no): ");
         setLibre(sc.nextLine() == "si" ? true : false);
 
-        System.out.println("Numero taxistas: ");
+        System.out.print("Numero taxistas: ");
         setNumeroTaxistas(Integer.parseInt(sc.nextLine()));
     }
 }

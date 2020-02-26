@@ -29,6 +29,8 @@ public class VTC extends Vehiculo {
         return this.ciudad;
     }
 
+    public VTC() {}
+
     public VTC(int horas_trabajadas, int radio_accion, String ciudad) {
         super();
         this.horas_trabajadas = horas_trabajadas;
@@ -49,5 +51,31 @@ public class VTC extends Vehiculo {
         System.out.println("Horas trabajadas: " + getHorasTrabajadas());
         System.out.println("Radio accion: " + getRadioAccion());
         System.out.println("Ciudad: " + getCiudad());
+    }
+
+    @Override
+    public void pedirAlta() {
+        Scanner sc = new Scanner(System.in);
+
+        super.pedirAlta();
+
+        System.out.print("Horas trabajadas: ");
+        int horas_trabajadas = Integer.parseInt(sc.nextLine());
+        while (horas_trabajadas > 24) {
+            System.out.print("Horas trabajadas (no mayores a 24h): ");
+            horas_trabajadas = Integer.parseInt(sc.nextLine());
+        }
+        setHorasTrabajadas(horas_trabajadas);
+
+        System.out.print("Radio accion: ");
+        int radio_accion = Integer.parseInt(sc.nextLine());
+        while (radio_accion > 50) {
+            System.out.print("Radio accion (no mayor a 50km): ");
+            radio_accion = Integer.parseInt(sc.nextLine());
+        }
+        setRadioAccion(radio_accion);
+
+        System.out.print("Ciudad: ");
+        setCiudad(sc.nextLine());
     }
 }
