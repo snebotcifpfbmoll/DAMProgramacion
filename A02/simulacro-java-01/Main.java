@@ -9,8 +9,12 @@ public class Main {
         c.mostrarCajero();
         TarjetaDebito t = new TarjetaDebito("123456789c", 1111, "Serafi", "Nebot", 2000);
         c.anadirTarjeta(t);
-        //c.sacarDinero();
-        c.comprobarDevolucion(100);
+        try {
+            c.sacarDinero();
+        } catch (ExcepcionCajero e) {
+            System.out.println("El cajero no tiene suficientes billetes.");
+        }
+        c.mostrarCajero();
 
         int opcion = 2;
         while (opcion != 2) {

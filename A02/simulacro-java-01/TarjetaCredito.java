@@ -44,5 +44,16 @@ public class TarjetaCredito extends Tarjeta {
     }
 
     public void disminuirSaldoDisponible(double cantidad) throws SaldoInsuficienteException {
+        double saldo = getSaldo();
+        double credito = getCredito();
+
+        if (cantidad < saldo) {
+            setSaldo(saldo - cantidad);
+        } else if (cantidad < getSaldo() + getCredito()) {
+            setSaldo(0);
+            setCredito(credito - (cantidad - saldo));
+        } else {
+            throw new SaldoInsuficienteException();
+        }
     }
 }

@@ -48,15 +48,17 @@ public class CajeroAutomatico {
 
     public void mostrarCajero() {
         for (int i = 0; i < N_BILLETES; i ++) {
-            int[][] billetes = this.getBilletes();
+            int[][] billetes = getBilletes();
             System.out.println(billetes[i][1] + " billetes de " + billetes[i][0] + "€.");
         }
     }
 
-    public boolean comprobarDevolucion(int cantidad) {
+    public int[][] comprobarDevolucion(double cantidad) throws ExcepcionCajero {
         int i = 0;
-        int cantidad_tmp = cantidad;
-        int[][] billetes_tmp = getBilletes();
+        double cantidad_tmp = cantidad;
+        int[][] billetes = getBilletes();
+        int[][] billetes_tmp = Arrays.copyOf(billetes, billetes.length);
+
         while (i < N_BILLETES) {
             if (cantidad_tmp >= billetes_tmp[i][0] && billetes_tmp[i][1] > 0) {
                 cantidad_tmp -= billetes_tmp[i][0];
@@ -67,15 +69,13 @@ public class CajeroAutomatico {
         }
 
         if (cantidad_tmp != 0) {
-            return false;
+            throw new ExcepcionCajero();
         }
 
-        setBilletes(billetes_tmp);
-
-        return true;
+        return billetes_tmp;
     }
 
-    public void sacarDinero() {
+    public void sacarDinero() throws ExcepcionCajero {
         Scanner sc = new Scanner(System.in);
         System.out.println("======================");
         System.out.println("==== SACAR DINERO ====");
@@ -103,9 +103,18 @@ public class CajeroAutomatico {
                 try {
                     System.out.print("Cantidad a sacar: ");
                     double cantidad = Double.parseDouble(sc.nextLine());
-                    tarjeta.disminuirSaldoDisponible(cantidad);
+                    int[][] billetes = comprobarDevolucion(cantidad);
+
+                    if (tarjeta instanceof TarjetaDebito) {
+                        ((TarjetaDebito)tarjeta).disminuirSaldoDisponible(cantidad);
+                    } else if (tarjeta instanceof TarjetaCredito) {
+                        ((TarjetaCredito)tarjeta).disminuirSaldoDisponible(cantidad);
+                    }
+                    setBilletes(billetes);
                 } catch (SaldoInsuficienteException e) {
                     System.out.println("No hay saldo suficiente.");
+                } catch (ExcepcionCajero e) {
+                    throw new ExcepcionCajero();
                 }
             } else {
                 System.out.println("El PIN no es correcto.");
