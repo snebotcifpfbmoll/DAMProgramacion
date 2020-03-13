@@ -53,7 +53,7 @@ public class CajeroAutomatico {
         }
     }
 
-    public int[][] comprobarDevolucion(double cantidad) throws ExcepcionCajero {
+    public int[][] comprobarDevolucion(double cantidad) {
         int i = 0;
         double cantidad_tmp = cantidad;
         int[][] billetes = getBilletes();
@@ -68,11 +68,7 @@ public class CajeroAutomatico {
             }
         }
 
-        if (cantidad_tmp != 0) {
-            throw new ExcepcionCajero();
-        }
-
-        return billetes_tmp;
+        return cantidad_tmp == 0 ? billetes_tmp : null;
     }
 
     public void sacarDinero() throws ExcepcionCajero {
@@ -105,16 +101,18 @@ public class CajeroAutomatico {
                     double cantidad = Double.parseDouble(sc.nextLine());
                     int[][] billetes = comprobarDevolucion(cantidad);
 
-                    if (tarjeta instanceof TarjetaDebito) {
-                        ((TarjetaDebito)tarjeta).disminuirSaldoDisponible(cantidad);
-                    } else if (tarjeta instanceof TarjetaCredito) {
-                        ((TarjetaCredito)tarjeta).disminuirSaldoDisponible(cantidad);
+                    if (billetes != null) {
+                        if (tarjeta instanceof TarjetaDebito) {
+                            ((TarjetaDebito)tarjeta).disminuirSaldoDisponible(cantidad);
+                        } else if (tarjeta instanceof TarjetaCredito) {
+                            ((TarjetaCredito)tarjeta).disminuirSaldoDisponible(cantidad);
+                        }
+                        setBilletes(billetes);
+                    } else {
+                        throw new ExcepcionCajero();
                     }
-                    setBilletes(billetes);
                 } catch (SaldoInsuficienteException e) {
                     System.out.println("No hay saldo suficiente.");
-                } catch (ExcepcionCajero e) {
-                    throw new ExcepcionCajero();
                 }
             } else {
                 System.out.println("El PIN no es correcto.");
