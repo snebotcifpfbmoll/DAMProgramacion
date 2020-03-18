@@ -5,6 +5,8 @@ public abstract class Apuesta {
     private int n_apuesta = num_apuestas++;
     private String nombre;
     private String apellidos;
+    private static String[] arr_nombres = {"SERAFI", "EDU", "CORTI", "DANI", "JHONNY", "ROBER"};
+    private static String[] arr_apellidos = {"NEBOT", "ZAPATA", "FORTEZA", "APESTEGUIA", "MONIZ", "VILA"};
 
     public int getNumeroApuestas() {
         return this.num_apuestas;
@@ -44,6 +46,16 @@ public abstract class Apuesta {
 
     public String getApellidos() {
         return this.apellidos;
+    }
+
+    public static String getRandomNombre() {
+        int random = Utilidades.randomConRango(0, arr_nombres.length - 1);
+        return arr_nombres[random];
+    }
+
+    public static String getRandomApellido() {
+        int random = Utilidades.randomConRango(0, arr_apellidos.length - 1);
+        return arr_apellidos[random];
     }
 
     public Apuesta() {}

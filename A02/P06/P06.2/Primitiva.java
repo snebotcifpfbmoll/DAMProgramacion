@@ -1,7 +1,8 @@
 import java.util.*;
 
 public class Primitiva extends Apuesta {
-    private int[] listaNum = new int[6];
+    private static final int N_NUMS = 6;
+    private int[] listaNum = new int[N_NUMS];
     private int aciertos = 0;
 
     public void setListaNum(int[] listaNum) throws ApuestaException {
@@ -77,7 +78,7 @@ public class Primitiva extends Apuesta {
         String apellidos = sc.nextLine();
 
         int i = 0;
-        int[] listaNum = new int[6];
+        int[] listaNum = new int[N_NUMS];
         while (i < listaNum.length) {
             System.out.print("[" + i + "] Introduce un numero: ");
             int num = 0;
@@ -101,5 +102,40 @@ public class Primitiva extends Apuesta {
         } catch (ApuestaException e) {
             throw e;
         }
+    }
+
+    public static int[] generarResultado() {
+        int[] listaNum = new int[N_NUMS];
+        for (int i = 0; i < listaNum.length; i ++) {
+            listaNum[i] = Utilidades.randomConRango(1, 49);
+        }
+
+        return listaNum;
+    }
+
+    public static Primitiva crearAleatorio() throws ApuestaException {
+        String nombre = Apuesta.getRandomNombre();
+        String apellido = Apuesta.getRandomApellido();
+
+        int[] listaNum = generarResultado();
+
+        try {
+            return new Primitiva(nombre, apellido, listaNum, 0);
+        } catch (ApuestaException e) {
+            throw e;
+        }
+    }
+
+    public static boolean comprobarResultado(int[] res_1, int[] res_2) {
+        if (res_1.length != res_2.length) return false;
+
+        int i = 0;
+        boolean iguales = true;
+        while (i < res_1.length && iguales) {
+            if (res_1[i] != res_2[i]) iguales = false;
+            i ++;
+        }
+
+        return iguales;
     }
 }

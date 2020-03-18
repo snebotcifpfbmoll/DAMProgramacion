@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Quiniela extends Apuesta {
-    private static int N_PARTIDOS = 15;
+    private static final int N_PARTIDOS = 15;
     // he decidido hacerlo con un array de enums en lugar de los simbolos 1, x, 2
     // creo que asi es mas intuitivo
     private ResultadoPartido[] resultados = new ResultadoPartido[N_PARTIDOS];
@@ -79,6 +79,7 @@ public class Quiniela extends Apuesta {
                 apuestas[i] = ResultadoPartido.GANA_FUERA;
             } else {
                 System.out.println("Solo se permiten los valores: (CASA, EMPATE, FUERA)");
+                i--;
             }
         }
 
@@ -87,5 +88,52 @@ public class Quiniela extends Apuesta {
         } catch (ApuestaException e) {
             throw e;
         }
+    }
+
+    public static ResultadoPartido[] generarResultado() {
+         ResultadoPartido[] resultados = new ResultadoPartido[N_PARTIDOS];
+         for (int i = 0; i < resultados.length; i ++) {
+             int random = Utilidades.randomConRango(0, 2);
+             
+             switch (random) {
+                 case 0:
+                     resultados[i] = ResultadoPartido.GANA_CASA;
+                     break;
+                 case 1:
+                     resultados[i] = ResultadoPartido.EMPATE;
+                     break;
+                 case 2:
+                     resultados[i] = ResultadoPartido.GANA_FUERA;
+                     break;
+             }
+         }
+
+         return resultados;
+    }
+
+    public static Quiniela crearAleatorio() throws ApuestaException {
+         String nombre = Apuesta.getRandomNombre();
+         String apellido = Apuesta.getRandomApellido();
+
+         ResultadoPartido[] resultados = generarResultado();
+
+         try {
+             return new Quiniela(nombre, apellido, resultados);
+         } catch (ApuestaException e) {
+             throw e;
+         }
+     }
+   
+    public static boolean comprobarResultado(ResultadoPartido[] res_1, ResultadoPartido[] res_2) {
+        if (res_1.length != res_2.length) return false;
+
+        int i = 0;
+        boolean iguales = true;
+        while (i < res_1.length && iguales) {
+            if (res_1[i] != res_2[i]) iguales = false;
+            i ++;
+        }
+
+        return iguales;
     }
 }
