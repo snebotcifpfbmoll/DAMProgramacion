@@ -1,37 +1,6 @@
 import java.util.*;
 
 public class P06 {
-    public static void imprimirCaracteristicas(ArrayList<FiguraGeometrica> arr) {
-        System.out.println("Calculadora de Serafi Nebot Ginard");
-        for (FiguraGeometrica fig : arr) {
-            if (fig instanceof Cubo) {
-                ((Cubo)fig).calcularArea();
-                ((Cubo)fig).calcularVolumen();
-            } else if (fig instanceof Esfera) {
-                ((Esfera)fig).calcularArea();
-                ((Esfera)fig).calcularVolumen();
-            } else if (fig instanceof Cilindro) {
-                ((Cilindro)fig).calcularArea();
-                ((Cilindro)fig).calcularVolumen();
-            } else if (fig instanceof Cono) {
-                ((Cono)fig).calcularArea();
-                ((Cono)fig).calcularVolumen();
-            }
-        }
-    }
-
-    public static int elegirObjeto() {
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("Elige una figura.");
-        System.out.println("\t1) Cubo.");
-        System.out.println("\t2) Esfera.");
-        System.out.println("\t3) Cilindro.");
-        System.out.println("\t4) Cono.");
-
-        return Integer.parseInt(sc.nextLine());
-    }
-
     public static void main(String args[]) {
         Scanner sc = new Scanner(System.in);
 
@@ -121,5 +90,36 @@ public class P06 {
                     break;
             }
         }
+    }
+
+    public static void imprimirCaracteristicas(ArrayList<FiguraGeometrica> arr) {
+        System.out.println("Calculadora de Serafi Nebot Ginard");
+        for (FiguraGeometrica fig : arr) {
+            if (fig instanceof Cubo) {
+                ((Cubo)fig).calcularArea();
+                ((Cubo)fig).calcularVolumen();
+            } else if (fig instanceof Esfera) {
+                ((Esfera)fig).calcularArea();
+                ((Esfera)fig).calcularVolumen();
+            } else if (fig instanceof Cilindro) {
+                ((Cilindro)fig).calcularArea();
+                ((Cilindro)fig).calcularVolumen();
+            } else if (fig instanceof Cono) {
+                ((Cono)fig).calcularArea();
+                ((Cono)fig).calcularVolumen();
+            }
+        }
+    }
+
+    public static int elegirObjeto() {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Elige una figura.");
+        System.out.println("\t1) Cubo.");
+        System.out.println("\t2) Esfera.");
+        System.out.println("\t3) Cilindro.");
+        System.out.println("\t4) Cono.");
+
+        return Integer.parseInt(sc.nextLine());
     }
 }
